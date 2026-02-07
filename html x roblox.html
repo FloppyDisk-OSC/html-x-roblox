@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML × Roblox Sandbox</title>
+</head>
+<body>
+  <h1>HTML × Roblox Sandbox</h1>
+
+  <input id="player" placeholder="Roblox Player Name">
+  <button id="spawn">Spawn Part Above Player</button>
+
+  <script>
+    const backendURL = "https://your-backend.com/events"; // your server
+
+    document.getElementById("spawn").addEventListener("click", () => {
+      const player = document.getElementById("player").value;
+      fetch(backendURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: "HTMLClient",
+          type: "spawn_part",
+          targetPlayer: player,
+          time: Date.now()
+        })
+      }).then(() => console.log(`[HTML] Sent spawn_part for ${player}`))
+        .catch(err => console.error(err));
+    });
+  </script>
+</body>
+</html>
